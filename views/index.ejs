@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pizzaria Fantastica</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<form action="/busca" method="get">
+		<input type="text" name="q" placeholder="Qual pizza você procura?" autocomplete="off" value="">
+		<button type="submit">Buscar</button>
+	</form>
+
+
+	<main>
+		<% listaPizzas.forEach((pizza) => { %>
+		<article>
+			<img src="<%= pizza.img.length == 0 ? "/img/no-image.png" : pizza.img %>" alt="calabresa">
+			<a href="pizza.html">Ver Mais</a>
+			<button>+ Add</button>
+			<div><%= pizza.nome %></div>
+			<span>R$<%= pizza.preco %></span>
+        </article>
+        <% }); %>
+    </main>
+
+</body>
+</html>

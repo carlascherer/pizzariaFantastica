@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pizzaria Fantastica</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pizza.css">
+</head>
+<body>
+    <header>
+        <a href="index.html"><button>&larr; Voltar Página Inicial</button></a>
+    </header>
+	<main>
+		<h1><%= pizza.nome %></h1>
+		<h2>R$ <%= pizza.preco %></h2>
+		<img src="<%= pizza.img == "" ? "/img/no-image.png" : pizza.img %>">
+		<div>Ingredientes: <%= pizza.ingredientes.join(', ') %></div>
+		<button>+ Add</button>
+    </main>
+
+</body>
+</html>
