@@ -1,8 +1,15 @@
 const listaPizzas = require('../database/listaPizzas.json');
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 
 const pizzaController = {
+
+    // C reate
+    // R ead
+    // U pdate
+    // D elete
+
     index: (req, res) => {
         res.render('index', { listaPizzas });
     },
@@ -15,7 +22,9 @@ const pizzaController = {
         res.render('create-pizza');
     },
     store: (req, res) => {
-        let {nome, ingredientes, preco, img} = req.body;
+        let {nome, ingredientes, preco} = req.body;
+        let {files} = req;
+        let img = '/img/' + files[0].originalname;
         ingredientes = ingredientes.split(',');
         let id = listaPizzas.length + 1;
         listaPizzas.push({
@@ -34,17 +43,30 @@ const pizzaController = {
         res.render('edit-pizza', {pizzaEditar});
     },
     update: (req, res) => {
-        let {nome, ingredientes, preco, img} = req.body;
+        let {nome, ingredientes, preco} = req.body;
+        let {files} = req;
+        let img = '/img/' + files[0].originalname;
         let pizzaId = req.params.id;
         ingredientes = ingredientes.split(',');
         let pizzaEditar = listaPizzas.find( pizza => pizza.id == pizzaId);
         pizzaEditar.nome = nome;
         pizzaEditar.ingredientes = ingredientes;
         pizzaEditar.preco = preco;
-        pizzaEditar.img = img;
+        if (img != undefined) {
+            pizzaEditar.img = img;
+        }
         fs.writeFileSync(path.join('database', 'listaPizzas.json'), JSON.stringify(listaPizzas));
         let rota = '/pizza/' + pizzaId;
         res.redirect(rota);
+    },
+    search: (req, res) => {
+        let busca = url.parse(req.url, true).query.q;
+        if(busca == '') {
+            res.redirect('/');
+        } else {
+            let resultadoBusca = listaPizzas.find( pizza => pizza.nome.toLowerCase().indexOf(busca) !== -1 );
+            res.render('index', {listaPizzas: [resultadoBusca]});
+        }
     }
 }
 

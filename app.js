@@ -7,7 +7,7 @@ var logger = require('morgan');
 var pizzaRouter = require('./routes/PizzaRouter');
 
 var app = express();
-// var methodOverride = require('method-override');
+var methodOverride = require('method-override');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(methodOverride("_method"));
+app.use(methodOverride("_method"));
 
 app.use('/', pizzaRouter);
 
