@@ -23,8 +23,7 @@ const pizzaController = {
     },
     store: (req, res) => {
         let {nome, ingredientes, preco} = req.body;
-        let {files} = req;
-        let img = '/img/' + files[0].originalname;
+        let img = '/img/' + req.files[0].originalname;
         ingredientes = ingredientes.split(',');
         let id = listaPizzas.length + 1;
         listaPizzas.push({
@@ -44,8 +43,7 @@ const pizzaController = {
     },
     update: (req, res) => {
         let {nome, ingredientes, preco} = req.body;
-        let {files} = req;
-        let img = '/img/' + files[0].originalname;
+        let img = '/img/' + req.files[0].originalname;
         let pizzaId = req.params.id;
         ingredientes = ingredientes.split(',');
         let pizzaEditar = listaPizzas.find( pizza => pizza.id == pizzaId);
